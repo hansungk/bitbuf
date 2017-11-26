@@ -76,7 +76,7 @@ public:
   void append(const Bitbuf &b);
   // Append a subbuffer of range [start, end) of another buffer at the end of
   // this buffer.
-  void append_sub(const Bitbuf &b, size_t start, size_t end);
+  void append(const Bitbuf &b, size_t start, size_t end);
   // Append given number of zeros at the end of this buffer.
   void append_zeros(size_t n);
   // Append a single 8-bit byte at the end of this buffer.

@@ -77,18 +77,22 @@ void Bitbuf::append_byte(byte u8) {
   len += 8;
 }
 
-void Bitbuf::append_sub(const Bitbuf &ba, size_t start, size_t end) {
+void Bitbuf::append(const Bitbuf &ba, size_t start, size_t end) {
+  size_t gap = end - start;
+
   // Efficient append when byte aligned
   if (len % 8 == 0 && start % 8 == 0) {
-    buf.insert(buf.end(), ba.buf.begin(), ba.buf.end());
+    buf.insert(buf.end(), ba.buf.cbegin() + (start / 8),
+               ba.buf.cbegin() + (start / 8 + byte_count(gap)));
+    len += gap;
     return;
   }
 
-  size_t gap = end - start;
   reserve(len + gap);
 
   size_t old_len = len;
-  for (size_t i = 0; i < byte_count(gap); i++) { // XXX might exceed reserved space
+  for (size_t i = 0; i < byte_count(gap);
+       i++) { // XXX might exceed reserved space
     byte byte_ = ba.byte_at_pos_offset(start / 8 + i, start % 8);
     append_byte(byte_);
   }
