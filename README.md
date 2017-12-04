@@ -58,7 +58,7 @@ for efficient hamming weight calculation.
   * **Cons**: Lacks bulk bit operations such as sub, reverse and invert.  No
     support for construction with format string, numerical conversion or
     pattern matching.
-* std::vector<bool> (C++)
+* std::vector\<bool\> (C++)
   * **Pros**: STL implementation of a dynamic bit array.
   * **Cons**: Lacks common bit operations such as XOR and bitshift.
 * std::bitset (C++)
